@@ -1,0 +1,122 @@
+<!-- <section class="vh-100 body">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Registration Form</h3>
+            <form (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label text-black " for="username">User Name</label>
+                    <input type="text" id="username" placeholder="name" class="form-control form-control-lg"
+                      [(ngModel)]="registrationData.name" name="username" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" placeholder="example@gmail.com" class="form-control form-control-lg"
+                      [(ngModel)]="registrationData.email" name="email" />
+ 
+                  </div>
+                </div>
+              </div>
+ 
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="password"
+                      [(ngModel)]="registrationData.password" name="password" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Role</h6>
+ 
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="airline" value="Airline"
+                      [(ngModel)]="registrationData.userType" />
+                    <label class="form-check-label" for="Airline">Airline</label>
+                  </div>
+ 
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Forwarder"
+                      value="Forwarder" [(ngModel)]="registrationData.userType" />
+                    <label class="form-check-label" for="Forwarder">Forwarder</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-2">
+                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  -->
+
+  <div class="d-flex justify-content-center align-items-center " style="height: 100vh; background-color:rgb(245, 242, 242);">
+   <div class="">
+    <form [formGroup]="registerForm" (ngSubmit)="registeredSubmit()">
+      <div class="row g-0 ">
+          <div class="col text-center p-2 mb-3 bg-light">
+              <span class="fs-3  w-100">Register</span>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col mv-3">
+              <label for="name" class="form-label"> Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" maxlength="30" pattern="[A-Za-z\s]+" maxlength="20"
+              (keypress)="blockSpaces($event)">
+              <div class="form-text text-danger" *ngIf="Name?.invalid && (Name?.touched || Name?.dirty)">
+                  Name is required, and in between 3 - 30 characters.
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col mb-3">
+              <label for="email" class="form-label"> Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+              <div class="form-text text-danger" *ngIf="Email?.invalid && (Email?.touched || Email?.dirty)">
+                  Fill the email correctly.
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" maxlength="20">
+              <div class="form-text text-danger" *ngIf="Password.errors?.['required'] && (Password.touched || Password.dirty)">
+                  Password is required.
+              </div>
+              <div class="form-text text-danger" *ngIf="Password.errors?.['minlength']">
+                  Enter the password correctly, password range is 8 - 20.
+              </div>
+          </div>
+          <div class="col ps-3 mb-3">
+              <div class="m-1">User Type</div>
+              <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" value="a" id="airline" formControlName="userType">
+                  <label class="form-check-label" for="airline">Airline</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" value="f" id="forwarder" formControlName="userType">
+                  <label class="form-check-label" for="forwarder">Forwarder</label>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-6 offset-3">
+              <div class="d-grid">
+                  <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Submit</button>
+              </div>
+          </div>
+      </div>
+  </form>
+   </div>
+</div>

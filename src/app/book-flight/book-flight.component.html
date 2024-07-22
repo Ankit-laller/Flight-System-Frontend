@@ -1,0 +1,92 @@
+
+
+
+<h5 class="col-md-12 d-flex justify-content-center mt-1">Book Flight</h5>
+<button (click)="backbtn()" class="btn gap-3"><i class="bi bi-arrow-left-circle"></i>   Back</button>
+<div class="container mt-5">
+    <div class="card">
+      
+       
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">Flight Details</h3>
+                        </div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item  d-flex justify-content-between">
+                              
+                                <label class="fw-bold">Airline Name:</label>
+                                <span>{{ flightData.airlineName }}</span>
+                           
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Flight Name:</label>
+                              <span>{{ flightData.flightName }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Origin City:</label>
+                                <span>{{ flightData.origin }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Departure Time:</label>
+                                <span>{{ flightData.departureTime }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Destination:</label>
+                                <span>{{ flightData.destination }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Arrival Time:</label>
+                                <span>{{flightData.arrivalTime }}</span>
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between">
+                              <label class="fw-bold">Date:</label>
+                                <span>{{ flightData.date}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+ 
+               
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">Cargo Details</h3>
+                        </div>
+                        <div class="card-body p-2">
+                            <form [formGroup]="cargoDetailForm" (ngSubmit)="bookFlight()" >
+                              <div class="form-group mb-3 ">
+                                <label for="cargoWeight" class="form-label">Cargo Weight (max: {{flightData.cargoWeightLimit}}) :</label>
+                                <input type="number" id="cargoWeight" class="form-control" formControlName="cargoWeight" max="{{flightData.cargoWeightLimit}}" >
+                                <div *ngIf="cargoDetailForm.get('cargoWeight').invalid && (cargoDetailForm.get('cargoWeight').touched || cargoDetailForm.get('cargoWeight').dirty)" class="text-danger"
+                                 >
+                                  Cargo weight cannot be greater than {{flightData.cargoWeightLimit}}.
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 ">
+                                <label for="cargoType" class="form-label">Cargo Type:</label>
+                                <input type="text" id="cargoType" class="form-control"  formControlName="cargo" pattern="[A-Za-z\s]+" maxlength="20">
+                                <div *ngIf="cargoDetailForm.get('cargo').invalid && (cargoDetailForm.get('cargo').touched || cargoDetailForm.get('cargo').dirty)" class="text-danger">
+                                  Cargo type should only contain alphabets (A-Z, a-z).
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                              <button type="submit" [disabled]="cargoDetailForm.invalid"  class="btn btn-primary btn-lg" >Book Flight</button>
+                          </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+
+        </div>
+    </div>
+</div>
+ 
+ 

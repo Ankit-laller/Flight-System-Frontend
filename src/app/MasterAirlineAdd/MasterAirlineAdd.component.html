@@ -1,0 +1,166 @@
+<!-- <h2 class="flex text-center">
+  Add Airline Details
+</h2>
+ 
+<div class="container custom-container">
+  <form class="row g-3" (ngSubmit)="onSubmit()">
+    <div class="col-md-6">
+      <label for="origin" class="form-label">Origin</label>
+      <input type="text" class="form-control" id="origin" [(ngModel)]="airlineDetails.origin" name="origin">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="destination" class="form-label">Destination</label>
+      <input type="text" class="form-control" id="destination" [(ngModel)]="airlineDetails.destination"
+        name="destination">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="arrivalTime" class="form-label">Arrival Time</label>
+      <input type="time" class="form-control" id="arrivalTime" [(ngModel)]="airlineDetails.arrivalTime"
+        name="arrivalTime">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="departureTime" class="form-label">Departure Time</label>
+      <input type="time" class="form-control" id="departureTime" [(ngModel)]="airlineDetails.departureTime"
+        name="departureTime">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="airlineName" class="form-label">Airline Name</label>
+      <input type="text" class="form-control" id="airlineName" [(ngModel)]="airlineDetails.airlineName"
+        name="airlineName">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="flightName" class="form-label">Flight Name</label>
+      <input type="text" class="form-control" id="flightName" [(ngModel)]="airlineDetails.flightName" name="flightName">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="price" [(ngModel)]="airlineDetails.price" name="price">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="cargoWeightLimit" class="form-label">Cargo Weight Limit</label>
+      <input type="number" class="form-control" id="cargoWeightLimit" [(ngModel)]="airlineDetails.cargoWeightLimit"
+        name="cargoWeightLimit">
+    </div>
+ 
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+  -->
+<div>
+  <button class=" m-2 btn btn-dark" (click)="backButton()"> Back </button>
+<h2 class="flex text-center">
+  Add Airline Details
+</h2>
+</div>
+<div class="container custom-container">
+  <form class="row g-3" (ngSubmit)="onSubmit()" #airlineForm="ngForm">
+    <!-- <div class="col-md-6">
+      <label for="origin" class="form-label">Origin</label>
+      <input type="text" class="form-control" id="origin" [(ngModel)]="airlineDetails.origin" pattern="[A-Za-z]+"
+        name="origin" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['origin'].invalid" class="text-danger">
+        Origin is required.
+      </div>
+    </div> -->
+ 
+    <div class="col-md-6">
+        <label for="inputOrigin" class="form-label">Origin</label>
+        <select id="inputOrigin" class="form-select" [(ngModel)]="airlineDetails.origin"  (change)="filterData()" [ngModelOptions]="{ standalone: true }"  >
+          <option selected disabled>Choose...</option>
+          <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+      </select>
+      </div>
+ 
+    <!-- <div class="col-md-6">
+      <label for="destination" class="form-label">Destination</label>
+      <input type="text" class="form-control" id="destination" [(ngModel)]="airlineDetails.destination"
+        name="destination" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['destination'].invalid" class="text-danger">
+        Destination is required.
+      </div>
+    </div> -->
+    <div class="col-md-6">
+      <label for="inputDestination" class="form-label">Destination</label>
+      <select id="inputDestination" class="form-select" [(ngModel)]="airlineDetails.destination" [ngModelOptions]="{ standalone: true }"  (change)="filterData()" >
+        <option selected disabled>Choose...</option>
+        <option *ngFor="let city of cities" [value]="city" >{{city}}</option>
+      </select>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="arrivalTime" class="form-label">Arrival Time</label>
+      <input type="time" class="form-control" id="arrivalTime" [(ngModel)]="airlineDetails.arrivalTime"
+        name="arrivalTime" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['arrivalTime'].invalid" class="text-danger">
+        Arrival Time is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="departureTime" class="form-label">Departure Time</label>
+      <input type="time" class="form-control" id="departureTime" [(ngModel)]="airlineDetails.departureTime"
+        name="departureTime" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['departureTime'].invalid" class="text-danger">
+        Departure Time is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="arrivalDate" class="form-label"> Date</label>
+      <input type="date" class="form-control" id="arrivalDate" [(ngModel)]="airlineDetails.date" [min]="today"
+        name="arrivalDate" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['arrivalDate'].invalid" class="text-danger">
+        Date is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="airlineName" class="form-label">Airline Name</label>
+      <input type="text" class="form-control" id="airlineName" [(ngModel)]="airlineDetails.airlineName"
+        name="airlineName" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['airlineName'].invalid" class="text-danger">
+        Airline Name is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="flightName" class="form-label">Flight Name</label>
+      <input type="text" class="form-control" id="flightName" [(ngModel)]="airlineDetails.flightName" name="flightName"
+        required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['flightName'].invalid" class="text-danger">
+        Flight Name is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="price" [(ngModel)]="airlineDetails.price" name="price" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['price'].invalid" class="text-danger">
+        Price is required.
+      </div>
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="cargoWeightLimit" class="form-label">Cargo Weight Limit</label>
+      <input type="number" class="form-control" id="cargoWeightLimit" [(ngModel)]="airlineDetails.cargoWeightLimit"
+        name="cargoWeightLimit" required>
+      <div *ngIf="airlineForm.submitted && airlineForm.controls['cargoWeightLimit'].invalid" class="text-danger">
+        Cargo Weight Limit is required.
+      </div>
+    </div>
+ 
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!airlineForm.valid">Submit</button>
+    </div>
+  </form>
+</div>
+ 

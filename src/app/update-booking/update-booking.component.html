@@ -1,0 +1,28 @@
+<div class="col-md-12">
+  <form [formGroup]="updationForm" (ngSubmit)="onSubmit()" class="p-3">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Update Booking</h1>
+      <button type="button" class="btn-close" #closeModelBtn data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+        <div class="form-group">
+          <label for="inputcargoWeight" class="form-label col-md-6">Cargo Weight (max:{{bookingData.cargoWeightLimit}})</label>
+          <input type="number" class="form-control" id="inputcargoWeight" formControlName="cargoWeight" max={{bookingData.cargoWeightLimit}}>
+          <div *ngIf="updationForm.get('cargoWeight').invalid && (updationForm.get('cargoWeight').touched ||updationForm.get('cargoWeight').dirty )" class="text-danger">
+            Cargo weight cannot be greater than {{bookingData.cargoWeightLimit}}
+          </div>
+        </div>
+        <div class="form-group mb-2">
+        <label for="inputCargoType" class="form-label">Cargo </label>
+        <input type="text" class="form-control" id="inputCargoType" formControlName="cargo"  pattern="[A-Za-z\s]+" maxlength="20">
+        <div *ngIf="updationForm.get('cargo').invalid && (updationForm.get('cargo').touched ||updationForm.get('cargo').dirty)" class="text-danger" >
+          Cargo type should only contain alphabets (A-Z, a-z)
+        </div>
+      </div>
+      
+      <div class="col-12 d-flex justify-content-end">
+        <button type="submit" [disabled]="updationForm.invalid" class="btn btn-primary" >Submit</button>
+      </div>
+    
+  </form>
+ 
+</div>

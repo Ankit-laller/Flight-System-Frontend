@@ -1,0 +1,110 @@
+<div class="container">
+  <h2 class="text-center">Master Airline Page</h2>   
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn btn-dark" (click)="addFlight()">Add Flight</button>
+    <button class="btn btn-primary" (click)="createSub()">Create Sub</button>
+    <button class="btn btn-danger" (click)="logOut()">Log out</button>
+  </div>
+  <table class="table table-striped m-4">
+    <thead>
+      <tr>
+        <th scope="col">Origin</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Arrival Time</th>
+        <th scope="col">Departure Time</th>
+        <th scope="col">Date</th>
+        <th scope="col">Airline Name</th>
+        <th scope="col">Flight Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Cargo Weight Limit</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of airlineDetails">
+        <td>{{ data.origin }}</td>
+        <td>{{ data.destination }}</td>
+        <td>{{ data.arrivalTime }}</td>
+        <td>{{ data.departureTime }}</td>
+        <td>{{ data.date }}</td>
+        <td>{{ data.airlineName }}</td>
+        <td>{{ data.flightName }}</td>
+        <td>{{ data.price }}</td>
+        <td>{{ data.cargoWeightLimit }}</td>
+        <td class="d-flex justify-content-between">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editFlight(data)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="btn btn-danger" (click)="deleteFlight(data)">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Flight</h5>
+                <button type="button" class="btn-close" #closeModal data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="flightForm" (ngSubmit)="UpdateFlight()">
+             
+                <div class="form-group">
+                    <label for="origin">Origin</label>
+                    <select class="form-control" id="origin" formControlName="origin">
+                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                    </select>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <select class="form-control" id="destination" formControlName="destination">
+                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                    </select>
+                </div>
+ 
+                <div class="form-group">
+                    <label for="arrivalTime">Arrival Time</label>
+                    <input type="time" class="form-control" id="arrivalTime" formControlName="arrivalTime">
+                </div>
+ 
+                <div class="form-group">
+                    <label for="departureTime">Departure Time</label>
+                    <input type="time" class="form-control" id="departureTime" formControlName="departureTime">
+                </div>
+ 
+                <div class="form-group">
+                    <label for="airlineName">Airline Name</label>
+                    <input type="text" class="form-control" id="airlineName" formControlName="airlineName">
+                </div>
+ 
+                <div class="form-group">
+                    <label for="flightName">Flight Name</label>
+                    <input type="text" class="form-control" id="flightName" formControlName="flightName">
+                </div>
+ 
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" formControlName="price">
+                </div>
+ 
+                <div class="form-group">
+                    <label for="cargoWeightLimit">Cargo Weight Limit</label>
+                    <input type="number" class="form-control" id="cargoWeightLimit" formControlName="cargoWeightLimit">
+                </div>
+ 
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="!flightForm.valid">Save changes</button>
+                </div>
+            </form>
+ 
+        </div>
+    </div>
+</div>
+ 

@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-center align-items-center " style="height: 100vh; background-color:rgb(245, 242, 242);">
+<div class="mt-8" style="width: 400px;">
+  <form [formGroup]="registerForm" (ngSubmit)="registeredSubmit()">
+    <div class="row g-0">
+      <div class="col text-center p-2 mb-3 bg-light">
+        <span class="fs-3">Register</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mv-3">
+        <label for="name" class="form-label"> Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" maxlength="30" pattern="[A-Za-z\s]+">
+        <div class="form-text text-danger" *ngIf="Name?.invalid && (Name?.touched || Name?.dirty)">
+          Name is required, and in between 3 - 30 characters.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mb-3">
+        <label for="email" class="form-label"> Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email" maxlength="20" (keypress)="blockSpaces($event)">
+        <div class="form-text text-danger" *ngIf="Email?.invalid && (Email?.touched || Email?.dirty)">
+          Fill the email correctly.
+        </div>
+      </div>
+    </div>
+      <div class="col mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" maxlength="20">
+        <div class="form-text text-danger" *ngIf="Password.errors?.['required'] && (Password.touched || Password.dirty)">
+          Password is required.
+        </div>
+        <div class="form-text text-danger" *ngIf="Password.errors?.['minlength']">
+          Enter the password correctly, password range is 4 - 20.
+        </div>
+      </div>
+      <!-- <div class="col ps-3 mb-3">
+        <div class="m-1">User Type</div>
+        <div class="form-check form-check-inline">
+          <input type="radio" class="form-check-input" value="Airline" id="airline" formControlName="userType" [disabled]="true">
+          <label class="form-check-label" for="airline">Airline</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input type="radio" class="form-check-input" value="Forwarder" id="forwarder" formControlName="userType" [disabled]="true">
+          <label class="form-check-label" for="forwarder">Forwarder</label>
+        </div>
+      </div> -->
+    <div class="row">
+      <div class="col-6 offset-3">
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid" >Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

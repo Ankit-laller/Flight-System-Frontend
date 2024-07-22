@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<div class="parent d-flex flex-column justify-content-center p-3 ">
+  <h5 class="mb-0 d-flex justify-content-center p-3">Search Flight</h5>
+  <div class="mt-1 card col-md-12 p-3">
+    <form [formGroup]="searchForm" (ngSubmit)="handleSearch()" class="row g-3 p-3 ">
+      
+      <div class="col-md-3">
+        <label for="inputOrigin" class="form-label">Origin</label>
+        <select id="inputOrigin" class="form-select" formControlName="origin"  >
+          <option value="" disabled>{{ choose }}</option>
+          <option *ngFor="let city of filteredCitiesForOrigin" [value]="city">{{ city }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="inputDestination" class="form-label">Destination</label>
+        <select id="inputDestination" class="form-select" formControlName="destination"  >
+          <option value="" disabled>{{ choose }}</option>
+          <option *ngFor="let city of filteredCitiesForDestination" [value]="city">{{ city }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="dateinput" class="form-label">Date</label>
+        <input type="date" class="form-control" id="dateinput" formControlName="date" [min]="today" [max]="maxDate">
+        <div *ngIf="searchForm.get('date')?.hasError('invalidYear')" class="text-danger">
+          Year must be between {{currentYear}} and 2757.
+        </div>
+      </div>
+      <div class="col-md-3 d-flex justify-content-center p-3">
+        <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">Search</button>
+      </div>
+    </form>
+  </div>
+</div> 
+
+<div *ngIf="NoFlights" class=" d-flex justify-content-center">
+   <h4>No Flights found</h4></div>
+<div class="p-3" *ngIf="showTable">
+  <h4>
+    Availible Flights
+  </h4>
+<table class="table table-striped  mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Airline Name</th>
+            <th scope="col">Flight Name</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Arrival Time</th>
+            <th scope="col">Departure Time</th>
+            <th scope="col">Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Cargo Weight Limit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable-row" *ngFor="let data of flightsData" >
+            <td>{{data.airlineName}}</td>
+            <td>{{data.flightName}}</td>
+            <td>{{data.origin}}</td>
+            <td>{{data.destination}}</td>
+            <td>{{data.arrivalTime}}</td>
+            <td>{{data.departureTime}}</td>
+            <td>{{data.date}}</td>
+            <td>{{data.price}}</td>
+            <td>{{data.cargoWeightLimit}}</td>
+            <td><button class="btn btn-primary" (click)="navigate(data)">Book</button></td>
+        </tr>
+    </tbody>
+</table>
+ 
+</div>

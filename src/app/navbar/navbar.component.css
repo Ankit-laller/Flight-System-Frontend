@@ -1,0 +1,13 @@
+@media (max-width: 992px) {
+    .navbar-toggler {
+        display: none; 
+    }
+}
+
+/* 
+.navbar-collapse collapse show{
+    .d-flex gap-2{
+        display: flex;
+        flex-direction: column;
+    }
+} */

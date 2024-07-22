@@ -1,0 +1,113 @@
+<!-- <ng-container *ngIf="!editMode; else form"> -->
+  <app-navbar></app-navbar>
+  
+  <div class="main d-flex justify-content-center mt-1">
+    <div class=" col-md-12 p-2">
+      <!-- <div class="title d-flex flex-row justify-content-between justify-content-center ">
+      </div> -->
+      <div class="card p-3">
+        <table class="table table-hover">
+          <thead class="text-center">
+            <th>AirLine Name</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>Cargo</th>
+            <th>Cargo Weight</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let flight of bookedFlightsData"  >
+              <td>{{flight.airlineName}}</td>
+              <td>{{flight.origin}}</td>
+              <td>{{flight.destination}}</td>
+              <td>{{flight.date}}</td>
+              <td>{{flight.cargo}}</td>
+              <td>{{flight.cargoWeight}}</td>
+              <td>{{flight.price}}</td>
+              <td class="d-flex justify-content-between">
+                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailsModal" (click)="openForm(flight)"><i class="bi bi-eye" ></i></button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openModal(flight)" ><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-danger" (click)="cancelBooking(flight.flightId)"><i class="bi bi-trash3"></i></button>
+              </td>
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!-- modal for updating booking -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <ng-template #container>
+        </ng-template>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Booking Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item  d-flex justify-content-between">
+            
+              <label class="fw-bold">Airline Name:</label>
+              <span>{{ bookingData.airlineName }}</span>
+         
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Flight Name:</label>
+            <span>{{ bookingData.flightName }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Origin City:</label>
+              <span>{{ bookingData.origin }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Departure Time:</label>
+              <span>{{ bookingData.departureTime }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Destination:</label>
+              <span>{{ bookingData.destination }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Arrival Time:</label>
+              <span>{{bookingData.arrivalTime }}</span>
+          </li>
+          
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Date:</label>
+              <span>{{ bookingData.date}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Cargo:</label>
+              <span>{{ bookingData.cargo}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Cargo Weight:</label>
+              <span>{{ bookingData.cargoWeight}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Cargo Weight Limit:</label>
+              <span>{{ bookingData.cargoWeightLimit}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <label class="fw-bold">Booked By:</label>
+              <span>{{ forwarderDetails.name}}</span>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center align-items-center " style="height: 100vh; background-color:rgb(245, 242, 242);">
+  <div class="" style="width: 500px;">
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+      <div class="row g-0">
+        <div class="col text-center p-2 mb-3 bg-light">
+          <span class="fs-3">CargoFlash Login</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
+          <label for="email" class="form-label"> Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email" maxlength="20"
+          (keypress)="blockSpaces($event)">
+          <div class="form-text text-danger" *ngIf="Email?.invalid && (Email?.touched || Email?.dirty)">
+            Fill the email correctly.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password" maxlength="20">
+          <div class="form-text text-danger"
+            *ngIf="Password.errors?.['required'] && (Password.touched || Password.dirty)">
+            Password is required.
+          </div>
+          <div class="form-text text-danger" *ngIf="Password.errors?.['minlength']">
+            Enter the password correctly, password range is 8 - 20.
+          </div>
+        </div>
+      </div>
+      <div class="text-center mb-2">
+        New user ? <a href="/register">Register here</a>
+      </div>
+      <div class="row">
+        <div class="col-6 offset-3">
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
