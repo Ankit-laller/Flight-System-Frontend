@@ -4,12 +4,49 @@
       <h1 class="modal-title fs-5" id="exampleModalLabel">Update Booking</h1>
       <button type="button" class="btn-close" #closeModelBtn data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
+    <div class="from-group">
+      <label for="airlineName" class="form-label col-md-6">Airline Name</label>
+      <input type="text" class="form-control disabled" id="airlineName"  [disabled]="true" [(ngModel)]="bookingData.airlineName" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="flightName" class="form-label col-md-6">Flight Name</label>
+      <input type="text" class="form-control " id="flightName"  [disabled]="true" [(ngModel)]="bookingData.flightName" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="origin" class="form-label col-md-6">Origin</label>
+      <input type="text" class="form-control " id="origin"  [disabled]="true" [(ngModel)]="bookingData.origin" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="departureTime" class="form-label col-md-6">Departure Time</label>
+      <input type="text" class="form-control " id="departureTime"  [disabled]="true" [(ngModel)]="bookingData.departureTime" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="destination" class="form-label col-md-6">Destination</label>
+      <input type="text" class="form-control " id="destination"  [disabled]="true" [(ngModel)]="bookingData.destination" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="arrivalTime" class="form-label col-md-6">Arrival Time</label>
+      <input type="text" class="form-control " id="arrivalTime"  [disabled]="true" [(ngModel)]="bookingData.arrivalTime" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="date" class="form-label col-md-6">Date</label>
+      <input type="text" class="form-control " id="date"  [disabled]="true" [(ngModel)]="bookingData.date" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="bookedBy" class="form-label col-md-6">Booked By</label>
+      <input type="text" class="form-control " id="bookedBy"  [disabled]="true" [(ngModel)]="forwarderDetails.name" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="from-group">
+      <label for="price" class="form-label col-md-6">Price</label>
+      <input type="text" class="form-control " id="price"  [disabled]="true" [(ngModel)]="bookingData.price" [ngModelOptions]="{standalone: true}">
+    </div>
         <div class="form-group">
           <label for="inputcargoWeight" class="form-label col-md-6">Cargo Weight (max:{{bookingData.cargoWeightLimit}})</label>
-          <input type="number" class="form-control" id="inputcargoWeight" formControlName="cargoWeight" max={{bookingData.cargoWeightLimit}}>
+          <input type="number" class="form-control" id="inputcargoWeight" formControlName="cargoWeight" [min]="1" max={{bookingData.cargoWeightLimit}}>
           <div *ngIf="updationForm.get('cargoWeight').invalid && (updationForm.get('cargoWeight').touched ||updationForm.get('cargoWeight').dirty )" class="text-danger">
-            Cargo weight cannot be greater than {{bookingData.cargoWeightLimit}}
+            Cargo weight must be between 1 to {{bookingData.cargoWeightLimit}}
           </div>
+          
         </div>
         <div class="form-group mb-2">
         <label for="inputCargoType" class="form-label">Cargo </label>

@@ -36,30 +36,34 @@ export class SearchFlightComponent implements OnInit, OnDestroy {
     })
     }
  
-   
+    subscription: Subscription;
+    subscription2: Subscription;
+    subscription3: Subscription;
+    subscription4: Subscription;
 
-    subscription:Subscription
+
   ngOnInit() {
     debugger
     // const month = (this.date.getMonth() + 1).toString().padStart(2, '0');
     // const day = this.date.getDate().toString().padStart(2, '0');
     // this.today = `${this.date.getFullYear()}-${month}-${day}`;
-    const searchedData = sessionStorage.getItem("searchedValues")
-    const searchDataObj = JSON.parse(searchedData)
-    this.searchForm.patchValue(searchDataObj)
+    // const searchedData = sessionStorage.getItem("searchedValues")
+    // const searchDataObj = JSON.parse(searchedData)
+    this.subscription= this.bookingService.availibleFlights.subscribe(r=>this.flightsData=r)
     console.log(this.today)
-    const availFlights = sessionStorage.getItem("filtghsData")
-    const availFlightsObj = JSON.parse(availFlights)
-    this.flightsData=availFlightsObj
-    // this.subscription =this.bookingService.showTable.subscribe(r=>this.showTable=r)
-    this.showTable = JSON.parse(sessionStorage.getItem("showTable"))
-    this.NoFlights = JSON.parse(sessionStorage.getItem("noFlight"))
-    // this.bookingService.noFlight.subscribe(r=>this.NoFlights=r)
+    this.subscription2= this.bookingService.inputValues.subscribe(r=>this.searchForm.patchValue(r))
+    
+    this.subscription3 =this.bookingService.showTable.subscribe(r=>this.showTable=r)
+    // this.showTable = JSON.parse(sessionStorage.getItem("showTable"))
+    // this.NoFlights = JSON.parse(sessionStorage.getItem("noFlight"))
+    this.subscription4=this.bookingService.noFlight.subscribe(r=>this.NoFlights=r)
   }
   ngOnDestroy() {
-     
-   
-    // this.subscription.unsubscribe()
+     debugger
+    this.subscription.unsubscribe()
+    this.subscription2.unsubscribe()
+    this.subscription3.unsubscribe()
+    this.subscription4.unsubscribe()
 
   }
 //   filterData() {
@@ -131,10 +135,10 @@ validateYearRange(control: AbstractControl) {
     this.bookingService.searchFlihgts(this.searchForm.value)
       .subscribe(response => {
         debugger
-      const flightsData = JSON.stringify(response)
-      sessionStorage.setItem("filtghsData", flightsData)
+      // const flightsData = JSON.stringify(response)
+      // sessionStorage.setItem("filtghsData", flightsData)
       this.flightsData = response
-      //  this.bookingService.saveAvailibleFlightsData(response)
+       this.bookingService.saveAvailibleFlightsData(response)
         console.log('flights found!', response);
         if(response.length ==0){
           this.NoFlights= true;

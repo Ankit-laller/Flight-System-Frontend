@@ -16,6 +16,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { SubUserComponent } from './SubUser/SubUser.component';
 import { UpdateBookingComponent } from './update-booking/update-booking.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [											
@@ -38,8 +40,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,   
+    TableModule,
+    // NgbModule
     
-  ],
+    ],
   providers: [AuthGuardGuard],
   bootstrap: [AppComponent]
 })

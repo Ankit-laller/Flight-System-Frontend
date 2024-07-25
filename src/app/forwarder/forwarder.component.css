@@ -3,3 +3,13 @@
         display: none; 
     }
 }
+
+.page-item:hover{
+    cursor: pointer;
+}
+
+
+li:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }

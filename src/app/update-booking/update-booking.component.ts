@@ -4,6 +4,8 @@ import { FlightModel, FlightUpadtionResponse } from '../data/FlightModel';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { BookingServiceService } from '../services/bookingService.service';
+import { User } from '../data/interface';
+import { AuthenticationService } from '../services/Authentication.service';
 @Component({
   selector: 'app-update-booking',
   templateUrl: './update-booking.component.html',
@@ -14,22 +16,40 @@ export class UpdateBookingComponent implements OnInit {
  @Input() bookingData:FlightModel ={} as FlightModel
  @Input() componentRef!: ComponentRef<UpdateBookingComponent>;
  @Output() close = new EventEmitter<boolean>()
+ forwarderDetails:User ={} as User
+
  @ViewChild("closeModelBtn", { static: false }) buttonRef!: ElementRef;
  updationForm:FormGroup
-  constructor( private fb:FormBuilder, private bookingService:BookingServiceService) { 
+  constructor( private fb:FormBuilder, private bookingService:BookingServiceService, private authService:AuthenticationService) { 
     this.updationForm = this.fb.group({
+      airlineName:["", {disabled:true}],
+      flightName:[""],
+      origin:[""],
+      destination:[""],
+      date:[""],
+      departureTime:[""],
+      arrivalTime:[""],
+      bookedBy:[""],
+      cargoWeightLimit:[""],
+      price:[""],
       cargoWeight:["",Validators.required],
       cargo:["",Validators.required]
     })
   }
 
   ngOnInit() {
+    debugger
     if (this.bookingData) {
-      this.updationForm.patchValue({
-        cargoWeight: this.bookingData.cargoWeight,
-        cargo: this.bookingData.cargo
-      });
+      this.updationForm.patchValue(
+        this.bookingData
+      );
     }
+    this.authService.getUserById(this.bookingData.bookedBy).subscribe(r=>{
+      if(r.success){
+     
+       this.forwarderDetails = r.user
+      }
+     })
   }
   closeModel(){
     debugger

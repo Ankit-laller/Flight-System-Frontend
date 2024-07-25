@@ -11,3 +11,6 @@
         flex-direction: column;
     }
 } */
+.nav-item.active .nav-link {
+    color: blue;
+  }

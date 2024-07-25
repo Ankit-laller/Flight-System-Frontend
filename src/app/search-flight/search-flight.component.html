@@ -21,7 +21,7 @@
       </div>
       <div class="col-md-3">
         <label for="dateinput" class="form-label">Date</label>
-        <input type="date" class="form-control" id="dateinput" formControlName="date" [min]="today" [max]="maxDate">
+        <input type="date" class="form-control" id="dateinput" formControlName="date" [min]="today" [max]="maxDate" onkeydown="return false">
         <div *ngIf="searchForm.get('date')?.hasError('invalidYear')" class="text-danger">
           Year must be between {{currentYear}} and 2757.
         </div>

@@ -19,4 +19,12 @@ export interface FlightModel {
     message: string;
     flightBookingData: FlightModel;
   }
+
+  export interface BookedFlightResponse{
+    success:Boolean;
+    message:string;
+    flightBookingData: FlightModel[];
+    length:number;
+
+  }
   

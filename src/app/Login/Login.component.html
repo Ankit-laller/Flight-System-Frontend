@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col mb-3">
           <label for="email" class="form-label"> Email</label>
-          <input type="email" class="form-control" id="email" formControlName="email" maxlength="20"
+          <input type="email" class="form-control" id="email" formControlName="email"
           (keypress)="blockSpaces($event)">
           <div class="form-text text-danger" *ngIf="Email?.invalid && (Email?.touched || Email?.dirty)">
             Fill the email correctly.
@@ -25,7 +25,7 @@
             Password is required.
           </div>
           <div class="form-text text-danger" *ngIf="Password.errors?.['minlength']">
-            Enter the password correctly, password range is 8 - 20.
+            Enter the password correctly, password range is 4 - 20.
           </div>
         </div>
       </div>
