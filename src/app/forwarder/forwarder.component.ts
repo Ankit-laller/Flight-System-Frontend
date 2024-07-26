@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewChecked, AfterViewInit, Component, ComponentRef, DoCheck, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ComponentRef, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UpdateBookingComponent } from '../update-booking/update-booking.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ import { Page } from 'ngx-pagination';
   templateUrl: './forwarder.component.html',
   styleUrls: ['./forwarder.component.css']
 })
-export class ForwarderComponent implements OnInit, AfterViewInit {
+export class ForwarderComponent implements OnInit, OnDestroy {
   editMode=false
   isLast=false;  
   pageNumber=1;
@@ -36,7 +36,7 @@ export class ForwarderComponent implements OnInit, AfterViewInit {
   
   
   constructor( private fb:FormBuilder, private authService:AuthenticationService, private bookingService:BookingServiceService,
-    private renderer: Renderer2
+   
   ) { 
     this.updationForm = this.fb.group({
       cargoWeight:["",Validators.required],
@@ -44,9 +44,9 @@ export class ForwarderComponent implements OnInit, AfterViewInit {
     })
     
   }
-  // ngAfterViewInit(): void {
-  //   this.modalInstance = new Modal(this.updationModal.nativeElement);
-  // }
+  ngOnDestroy(): void {
+    this.bookingService.clearData()
+  }
  
 
   ngOnInit() {
@@ -80,7 +80,7 @@ export class ForwarderComponent implements OnInit, AfterViewInit {
       this.bookedFlightsData=r.flightBookingData
       debugger    
         let i=1;
-        for(i;i<r.length/this.bookingService.getPageSize();i++){
+        for(i;i<=r.length/this.bookingService.getPageSize();i++){
           this.totalPages.push(i)
         }
         if(r.length%this.bookingService.getPageSize()>0){

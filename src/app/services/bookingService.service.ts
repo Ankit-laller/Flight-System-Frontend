@@ -23,7 +23,14 @@ export class BookingServiceService {
   }
   availibleFlights = this.flightsDataSubject.asObservable();
   flightData= this.dataSubject.asObservable();
+  clearData(){
+    this.inputValuesSubject.next("")
+    this.HandleTable(false,false)
+    this.flightsDataSubject.next('')
+
+  }
   private PageSize=5;
+  private baseUrl="https://localhost:7156/api/";
   getPageSize(){
     return this.PageSize
   }
@@ -36,21 +43,21 @@ saveAvailibleFlightsData(data:any){
 }
 saveInputValues(data:any){
   this.inputValuesSubject.next(data)
-}
+} 
 searchFlihgts(data){
-  return this.http.post<FlightModel[]>('https://localhost:7156/api/FlightBooking/SearchFlight', data)
+  return this.http.post<FlightModel[]>(this.baseUrl+'FlightBooking/SearchFlight', data)
 }
 bookFlight(data){
-  return  this.http.post("https://localhost:7156/api/FlightBooking/bookflight",data)
+  return  this.http.post(this.baseUrl+"FlightBooking/bookflight",data)
 }
 updateBooking(id,data){
-  return this.http.put<FlightUpadtionResponse>(`https://localhost:7156/api/FlightBooking/updateBooking/${id}`,data)
+  return this.http.put<FlightUpadtionResponse>(`${this.baseUrl}FlightBooking/updateBooking/${id}`,data)
 }
 getBookings( PageNumber){
-  return this.http.get<BookedFlightResponse>(`https://localhost:7156/api/FlightBooking/getBooking?PageNumber=${PageNumber}&PageSize=${this.PageSize}`)
+  return this.http.get<BookedFlightResponse>(`${this.baseUrl}FlightBooking/getBooking?PageNumber=${PageNumber}&PageSize=${this.PageSize}`)
 }
 cancelBooking(id){
- return this.http.delete<FlightUpadtionResponse>("https://localhost:7156/api/FlightBooking/"+id)
+ return this.http.delete<FlightUpadtionResponse>(this.baseUrl+"FlightBooking/"+id)
 }
 
 }

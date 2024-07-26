@@ -52,46 +52,38 @@ export class LoginComponent implements OnInit {
       confirmButtonText: "Yes, Login me in!"
     }).then((result) => {
       if (result.isConfirmed) {
-        
+       
         this.http.post<LoginResponse>('https://localhost:7156/api/User/userLogin', this.loginForm.value).subscribe(
           (response) => {
             if(response.success){
-              // debugger
-              
+               debugger
+             
               if(response.user.userType ==="Airline"){
                 localStorage.setItem("userType", response.user.userType)
                 localStorage.setItem("currentUserId",response.user.userId)
                 localStorage.setItem("isParent", response.user.isParent.toString())
                 this.router.navigateByUrl("/masterAirline")
-              
-              }else{Swal.fire({
-                title: "Login",
-                text:response.message,
-                icon: "success"
-              });
+             
+              }else{
                 localStorage.setItem("userType", response.user.userType)
                 localStorage.setItem("currentUserId",response.user.userId)
                 localStorage.setItem("isParent", response.user.isParent.toString())
                 this.router.navigateByUrl("/search-flight")
               }
-              
-              
+             
+             
             }else{
               Swal.fire({
                 title: "Error",
                 text: response.message,
                 icon: "error"
               });
-            }       
+            }      
           },
-      
+     
         );
       }
     });
   }
 }
  
- 
- 
-
-

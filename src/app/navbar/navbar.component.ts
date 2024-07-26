@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BookingServiceService } from '../services/bookingService.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isParent = true;
-  constructor(private router:Router) { }
+  constructor(private router:Router, private bookingService:BookingServiceService) { }
 
   ngOnInit() {
    if(localStorage.getItem("isParent")==="true"){
@@ -20,9 +21,12 @@ export class NavbarComponent implements OnInit {
   logout(){
     localStorage.clear()
     sessionStorage.clear()
+    this.bookingService.clearData();
     this.router.navigateByUrl("/login")
   }
   createSub(){
+    debugger
+    this.bookingService.clearData()
     this.router.navigateByUrl("/createSub")
   }
 

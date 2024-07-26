@@ -2,9 +2,8 @@
   <app-navbar></app-navbar>
   
   <div class="main d-flex flex-column justify-content-center  mt-1 ">
+    <h5 class="text-center">Booked Flights</h5>
     <div class=" col-md-12 p-2" style="height: 350px;">
-      <div class="title d-flex flex-row justify-content-between justify-content-center ">
-      </div>
       <div class="card p-3" style="height: 100%;" >
         <table class="table table-hover">
           <thead class="text-center">
@@ -39,26 +38,27 @@
     </div>
    
   </div>
-  <nav aria-label="Page navigation d-flex align-items-bottom">
-    <ul class="pagination d-flex justify-content-center">
-      <li class="page-item "   (click)="previousPageData()" [class.disabled]="pageNumber==1">
-        <span class="page-link" #previousButton >Previous</span>
-      </li>
-      <li *ngFor="let pagenumber of totalPages" #currentPageNumber 
-      [class.active]="pagenumber === pageNumber"
-      class="page-item" (click)="getData(pagenumber)">
-        <a  class="page-link" >{{pagenumber}}</a></li>
-     
-      <li class="page-item " #nextButton (click)="nextPageData()" [class.disabled]="pageNumber==totalPages[totalPages.length-1]">
-        <a class="page-link"  >Next</a>
-      </li>
-    </ul>
-  </nav>
+    <nav aria-label="Page navigation">
+      <ul class="pagination d-flex justify-content-center">
+        <li class="page-item "   (click)="previousPageData()" [class.disabled]="pageNumber==1">
+          <span class="page-link" #previousButton >Previous</span>
+        </li>
+        <li *ngFor="let pagenumber of totalPages" #currentPageNumber 
+        [class.active]="pagenumber === pageNumber"
+        class="page-item" (click)="getData(pagenumber)">
+          <a  class="page-link" >{{pagenumber}}</a></li>
+       
+        <li class="page-item " #nextButton (click)="nextPageData()" [class.disabled]="pageNumber==totalPages[totalPages.length-1]">
+          <a class="page-link"  >Next</a>
+        </li>
+      </ul>
+    </nav>
+   
 
  
 
 <!-- modal for updating booking -->
-  <div class="modal fade mt-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade mt-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <ng-template #container>

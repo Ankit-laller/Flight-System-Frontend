@@ -10,10 +10,9 @@ export class AuthGuardGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (localStorage.getItem('currentUserId')) {
-      if(localStorage.getItem('userType')==="Airline"){
+      
         return true;
-      }
-      return false;
+      
     } else {
       const router = inject(Router);
       return router.navigateByUrl('/login');
